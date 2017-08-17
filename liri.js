@@ -64,6 +64,10 @@ var command = {
 		initMovie(input)
 
 	},
+
+	'my-tweets': function() {
+		tweet()
+	}
 }
 
 
@@ -157,6 +161,37 @@ request("http://www.omdbapi.com/?t=" + input + "&apikey=40e9cece", function(erro
 });
 
 }
+
+
+tweet = function() {
+	clean()
+
+
+
+var twitterOath = require("./key.js");
+
+var Twitter = require('twitter');
+ 
+var client = new Twitter(
+twitterOath.twitterKeys
+);
+ 
+var params = {screen_name: 'jzinger18'};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    for (var i=0;i<20;i++) {
+    	
+    	console.log('Tweet: ' + tweets[i].text +' \n Timestamp: ' + tweets[i].created_at);
+    	clean()
+}
+  }
+});
+
+}
+
+
+
+
 
 
 command[call]()
